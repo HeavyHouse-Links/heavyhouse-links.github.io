@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Heavy House &mdash; Online Coaching</title>
+<meta name="description" content="Online coaching built around your busiest week, not your best one. Real people. Real results.">
+<meta property="og:title" content="Heavy House &mdash; Online Coaching">
+<meta property="og:description" content="Your plan is built around your busiest week, not your best one. That's why it works when everything else hasn't.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://heavyhouse-links.github.io/">
+<meta property="og:image" content="https://heavyhouse-links.github.io/images/logo.png">
+<meta name="twitter:card" content="summary">
+<style>
+  :root{
+    --ink:#111111;
+    --mid:#808080;
+    --pale:#d9d9d9;
+    --card-bg:#ededed;
+    --muted:#7f7f7f;
+    --disclaimer:#999999;
+    --radius-lg:20px;
+    --radius-md:14px;
+    --radius-sm:10px;
+    --shadow:0 8px 24px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.05);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    padding:32px 16px;
+    background:#f4f4f4;
+    font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+    display:flex;
+    justify-content:center;
+  }
+  .card{
+    width:100%;
+    max-width:520px;
+    background:#ffffff;
+    border-radius:var(--radius-lg);
+    box-shadow:var(--shadow);
+    overflow:hidden;
+  }
+  .hero{
+    background:var(--ink);
+    color:#fff;
+    padding:40px 28px 34px;
+    text-align:center;
+  }
+  .hero img{
+    width:64px;
+    height:64px;
+    border-radius:12px;
+    margin-bottom:14px;
+  }
+  .hero h1{
+    margin:0 0 8px;
+    font-size:24px;
+    letter-spacing:0.08em;
+    font-weight:800;
+  }
+  .hero .tagline{
+    margin:0 0 22px;
+    font-size:13px;
+    color:#cccccc;
+    line-height:1.5;
+  }
+  .hero .hook{
+    margin:0 auto 26px;
+    font-size:16.5px;
+    font-weight:700;
+    line-height:1.45;
+    max-width:420px;
+  }
+  .btn{
+    display:inline-block;
+    background:#fff;
+    color:var(--ink);
+    text-decoration:none;
+    font-size:13.5px;
+    font-weight:800;
+    letter-spacing:0.04em;
+    padding:14px 30px;
+    border-radius:var(--radius-sm);
+  }
+  .section-header{
+    background:var(--ink);
+    color:#fff;
+    font-size:12px;
+    font-weight:800;
+    letter-spacing:0.04em;
+    padding:9px 24px;
+    margin-top:26px;
+  }
+  .content{
+    padding:16px 24px 8px;
+  }
+  .content p{
+    margin:0 0 12px;
+    font-size:13px;
+    color:#333;
+    line-height:1.6;
+  }
+  .ba-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin:4px 0 6px;
+  }
+  .ba-item{
+    position:relative;
+  }
+  .ba-item img{
+    width:100%;
+    display:block;
+    border-radius:var(--radius-md);
+  }
+  .ba-item .tag{
+    position:absolute;
+    top:10px;
+    left:10px;
+    background:var(--ink);
+    color:#fff;
+    font-size:10px;
+    font-weight:800;
+    letter-spacing:0.06em;
+    padding:5px 10px;
+    border-radius:6px;
+  }
+  .ba-caption{
+    margin:0 0 16px;
+    font-size:12px;
+    font-weight:700;
+    color:var(--ink);
+    text-align:center;
+  }
+  .quote{
+    background:var(--card-bg);
+    border-radius:var(--radius-md);
+    padding:16px 18px;
+    margin:4px 0 14px;
+    font-size:13px;
+    color:#333;
+    line-height:1.6;
+    font-style:italic;
+  }
+  .quote .who{
+    display:block;
+    margin-top:8px;
+    font-style:normal;
+    font-weight:700;
+    font-size:11.5px;
+    color:var(--muted);
+  }
+  .step{
+    display:flex;
+    gap:14px;
+    background:var(--card-bg);
+    border-radius:var(--radius-md);
+    padding:14px 16px;
+    margin-bottom:10px;
+  }
+  .step .num{
+    flex:0 0 auto;
+    width:26px;
+    height:26px;
+    border-radius:50%;
+    background:var(--ink);
+    color:#fff;
+    font-size:12.5px;
+    font-weight:800;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-top:1px;
+  }
+  .step .text h3{
+    margin:0 0 3px;
+    font-size:13.5px;
+    font-weight:800;
+    color:var(--ink);
+  }
+  .step .text p{
+    margin:0;
+    font-size:12px;
+    color:#555;
+    line-height:1.5;
+  }
+  .resource{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    background:var(--card-bg);
+    border-radius:var(--radius-md);
+    padding:16px 18px;
+    text-decoration:none;
+    color:var(--ink);
+    margin-bottom:10px;
+  }
+  .resource .text h3{
+    margin:0 0 4px;
+    font-size:14px;
+    font-weight:800;
+  }
+  .resource .text p{
+    margin:0;
+    font-size:11.5px;
+    color:var(--muted);
+    line-height:1.4;
+  }
+  .resource .arrow{
+    flex:0 0 auto;
+    font-size:18px;
+    color:var(--mid);
+  }
+  .btn-row{
+    text-align:center;
+    margin:18px 0 10px;
+  }
+  .btn-dark{
+    display:inline-block;
+    background:var(--ink);
+    color:#fff;
+    text-decoration:none;
+    font-size:13.5px;
+    font-weight:800;
+    letter-spacing:0.04em;
+    padding:14px 30px;
+    border-radius:var(--radius-sm);
+  }
+  .cta{
+    margin:26px 24px 8px;
+    padding:26px 22px;
+    text-align:center;
+    background:var(--ink);
+    border-radius:var(--radius-md);
+  }
+  .cta p{
+    margin:0 0 16px;
+    color:#fff;
+    font-size:13px;
+    line-height:1.6;
+  }
+  .footer{
+    text-align:center;
+    font-size:11px;
+    color:var(--disclaimer);
+    padding:22px 24px 26px;
+  }
+  .footer a{
+    color:var(--muted);
+    font-weight:700;
+    text-decoration:none;
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <div class="hero">
+    <img src="data:image/png;base64,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" alt="Heavy House">
+    <h1>HEAVY HOUSE</h1>
+    <p class="tagline">Helping everyday people transform their body &amp; energy.<br><br>Real people. Real results.</p>
+    <p class="hook">Your plan is built around your busiest week, not your best one.<br><br>That's why it works when everything else hasn't.</p>
+    <a class="btn" href="https://form.jotform.com/220577256021046" target="_blank" rel="noopener">APPLY FOR COACHING</a>
+  </div>
+
+  <div class="section-header">WHO'S BEHIND IT</div>
+  <div class="content">
+    <p>I'm Luke. I started training as the small kid &mdash; small in height, small in weight &mdash; trying to build size, confidence and a better game of football. The training worked, but what stuck was everything around it: what I ate, how I recovered, and how I kept showing up on the weeks life got loud. Heavy House started there, before I even knew it was starting.</p>
+    <p>Now I coach everyone from professional athletes to marathon runners to mums and dads &mdash; fat loss, strength, recomposition, or simply having someone in your corner. The common thread is honesty: no one-size-fits-all programs, no quick fixes, no bullshit. Fitness shouldn't cost you your friends, family or freedom &mdash; it should add to your life, not take from it.</p>
+  </div>
+
+  <div class="section-header">REAL PEOPLE, REAL RESULTS</div>
+  <div class="content">
+
+    <div class="ba-grid">
+      <div class="ba-item">
+        <span class="tag">BEFORE</span>
+        <img src="images/phillip-before.jpg" alt="Phillip before Heavy House coaching">
+      </div>
+      <div class="ba-item">
+        <span class="tag">AFTER</span>
+        <img src="images/phillip-after.jpg" alt="Phillip after Heavy House coaching">
+      </div>
+    </div>
+    <p class="ba-caption">Phillip &mdash; the strongest and fittest he's ever been, built around FIFO swings and family life.</p>
+
+    <div class="ba-grid">
+      <div class="ba-item">
+        <span class="tag">BEFORE</span>
+        <img src="images/jordyn-before.jpg" alt="Jordyn before Heavy House coaching">
+      </div>
+      <div class="ba-item">
+        <span class="tag">AFTER</span>
+        <img src="images/jordyn-after.jpg" alt="Jordyn after Heavy House coaching">
+      </div>
+    </div>
+    <p class="ba-caption">Jordyn &mdash; stronger, leaner and more confident than she's ever been, without giving up her life to get there.</p>
+
+    <div class="ba-grid">
+      <div class="ba-item">
+        <span class="tag">BEFORE</span>
+        <img src="images/frazer-before.jpg" alt="Frazer before Heavy House coaching">
+      </div>
+      <div class="ba-item">
+        <span class="tag">AFTER</span>
+        <img src="images/frazer-after.jpg" alt="Frazer after Heavy House coaching">
+      </div>
+    </div>
+    <p class="ba-caption">Frazer &mdash; proof you can do both. The most muscle he's ever carried, the leanest he's ever been, and his first half marathon along the way.</p>
+
+    <p>Phillip, Jordyn and Frazer all started exactly where you might be right now &mdash; out of routine, unsure, a long way from their after photos. The first step for all three was a conversation, not a commitment.</p>
+
+    <div class="btn-row"><a class="btn-dark" href="https://form.jotform.com/220577256021046" target="_blank" rel="noopener">APPLY FOR COACHING</a></div>
+  </div>
+
+  <div class="section-header">HOW COACHING WORKS</div>
+  <div class="content">
+
+    <div class="step">
+      <div class="num">1</div>
+      <div class="text">
+        <h3>A real conversation</h3>
+        <p>You apply, we talk. No pressure, no scripts &mdash; just working out your goal, your schedule and whether we're the right fit.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="num">2</div>
+      <div class="text">
+        <h3>A plan built around your life</h3>
+        <p>Training and nutrition set up in the app around your goal, your starting point and your busiest week &mdash; not someone else's template.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="num">3</div>
+      <div class="text">
+        <h3>Support every day</h3>
+        <p>Direct WhatsApp access to me and a 24/7 resource hub &mdash; questions answered when they come up, not at the next appointment.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="num">4</div>
+      <div class="text">
+        <h3>Check-ins that adjust the plan</h3>
+        <p>Weekly check-ins keep the plan honest. Life changes, the plan flexes with it &mdash; that's why it keeps working.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="section-header">FREE TOOLS</div>
+  <div class="content">
+
+    <a class="resource" href="https://heavyhouse-links.github.io/macro-calculator/" target="_blank" rel="noopener">
+      <div class="text">
+        <h3>Macronutrient Calculator</h3>
+        <p>Work out your daily calories and macronutrients in under a minute</p>
+      </div>
+      <div class="arrow">&rarr;</div>
+    </a>
+
+    <a class="resource" href="https://heavyhouse-links.github.io/5-mistakes-guide/Heavy_House_5_Mistakes_Guide.pdf" target="_blank" rel="noopener">
+      <div class="text">
+        <h3>5 Mistakes Keeping You From Real Results</h3>
+        <p>The free guide to the mistakes holding most people back</p>
+      </div>
+      <div class="arrow">&rarr;</div>
+    </a>
+
+  </div>
+
+  <div class="cta">
+    <p>Ready to build a body and mindset you're proud of?<br><br>Fill out the short application and I'll be in touch within 24 hours.</p>
+    <a class="btn" href="https://form.jotform.com/220577256021046" target="_blank" rel="noopener">APPLY FOR COACHING</a>
+  </div>
+
+  <div class="footer">Heavy House &nbsp;&middot;&nbsp; <a href="https://www.instagram.com/heavyhouse__/" target="_blank" rel="noopener">Instagram</a></div>
+
+</div>
+</body>
+</html>

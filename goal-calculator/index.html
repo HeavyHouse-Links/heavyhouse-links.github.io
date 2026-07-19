@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Heavy House &mdash; Realistic Goal Calculator</title>
+<style>
+  :root{
+    --ink:#111111;
+    --mid:#808080;
+    --pale:#d9d9d9;
+    --input-bg:#f2f2f2;
+    --card-bg:#ededed;
+    --muted:#7f7f7f;
+    --disclaimer:#999999;
+    --warn:#c0392b;
+    --warn-bg:#fdf1f0;
+    --radius-lg:20px;
+    --radius-md:14px;
+    --radius-sm:10px;
+    --shadow:0 8px 24px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.05);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    padding:32px 16px;
+    background:#f4f4f4;
+    font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+    display:flex;
+    justify-content:center;
+  }
+  .card{
+    width:100%;
+    max-width:520px;
+    background:#ffffff;
+    border-radius:var(--radius-lg);
+    box-shadow:var(--shadow);
+    overflow:hidden;
+  }
+  .header{
+    background:var(--ink);
+    color:#fff;
+    padding:22px 24px;
+    text-align:center;
+  }
+  .header h1{
+    margin:0;
+    font-size:18px;
+    letter-spacing:0.06em;
+    font-weight:800;
+  }
+  .subtitle{
+    padding:16px 24px 4px;
+    font-size:12.5px;
+    color:#555;
+    text-align:center;
+    line-height:1.5;
+  }
+  .section-header{
+    background:var(--ink);
+    color:#fff;
+    font-size:12px;
+    font-weight:800;
+    letter-spacing:0.04em;
+    padding:9px 24px;
+    margin-top:14px;
+  }
+  .inputs{
+    padding:14px 24px 6px;
+  }
+  .row2{
+    display:flex;
+    gap:10px;
+  }
+  .field{flex:1;margin-bottom:12px;}
+  .field label{
+    display:block;
+    font-size:11px;
+    color:var(--ink);
+    margin-bottom:4px;
+    font-weight:600;
+  }
+  .field input, .field select{
+    width:100%;
+    background:var(--input-bg);
+    border:1px solid #e2e2e2;
+    border-radius:var(--radius-sm);
+    padding:10px 12px;
+    font-size:14px;
+    font-weight:700;
+    color:var(--ink);
+    font-family:inherit;
+    appearance:none;
+    -webkit-appearance:none;
+  }
+  .field select{
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23808080'><path d='M5.5 7.5l4.5 5 4.5-5z'/></svg>");
+    background-repeat:no-repeat;
+    background-position:right 10px center;
+    background-size:16px;
+    padding-right:32px;
+  }
+  .results{
+    padding:14px 24px 6px;
+  }
+  .result-hero{
+    background:var(--card-bg);
+    border-radius:var(--radius-md);
+    padding:20px 18px;
+    text-align:center;
+    margin-bottom:10px;
+  }
+  .result-hero .label{
+    font-size:11px;
+    font-weight:700;
+    color:var(--muted);
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+  }
+  .result-hero .value{
+    font-size:26px;
+    font-weight:800;
+    color:var(--ink);
+    margin-top:4px;
+  }
+  .result-hero .sub{
+    font-size:12px;
+    color:#555;
+    margin-top:6px;
+    line-height:1.5;
+  }
+  .result-hero.warn{
+    background:var(--warn-bg);
+  }
+  .result-hero.warn .value{
+    color:var(--warn);
+    font-size:18px;
+    line-height:1.4;
+  }
+  .result-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:10px;
+    margin-bottom:10px;
+  }
+  .result-card{
+    background:var(--card-bg);
+    border-radius:var(--radius-md);
+    padding:14px 10px;
+    text-align:center;
+  }
+  .result-card .label{
+    font-size:10.5px;
+    font-weight:700;
+    color:var(--muted);
+  }
+  .result-card .value{
+    font-size:15px;
+    font-weight:800;
+    color:var(--ink);
+    margin-top:3px;
+  }
+  .note{
+    margin:4px 2px 12px;
+    font-size:11.5px;
+    color:#555;
+    line-height:1.5;
+  }
+  .cta{
+    margin:14px 24px 8px;
+    padding:20px 20px;
+    text-align:center;
+    background:var(--ink);
+    border-radius:var(--radius-md);
+  }
+  .cta p{
+    margin:0 0 12px;
+    color:#fff;
+    font-size:12.5px;
+    line-height:1.5;
+  }
+  .cta a{
+    display:inline-block;
+    background:#fff;
+    color:var(--ink);
+    text-decoration:none;
+    font-size:12.5px;
+    font-weight:800;
+    letter-spacing:0.03em;
+    padding:11px 22px;
+    border-radius:var(--radius-sm);
+  }
+  .footer{
+    text-align:center;
+    font-size:10.5px;
+    color:var(--disclaimer);
+    font-style:italic;
+    padding:16px 24px 24px;
+  }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <div class="header">
+    <h1>REALISTIC GOAL CALCULATOR</h1>
+  </div>
+
+  <div class="subtitle">Tell it where you are, where you want to be, and how you train. It works out an honest timeline at a rate your life can actually hold &mdash; no crash rates, no false promises.</div>
+
+  <div class="section-header">YOUR NUMBERS</div>
+  <div class="inputs">
+    <div class="row2">
+      <div class="field">
+        <label>Current weight (kg)</label>
+        <input type="number" id="current" min="30" max="300" step="0.5" placeholder="e.g. 92">
+      </div>
+      <div class="field">
+        <label>Goal weight (kg)</label>
+        <input type="number" id="goal" min="30" max="300" step="0.5" placeholder="e.g. 80">
+      </div>
+    </div>
+    <div class="row2">
+      <div class="field">
+        <label>Height (cm)</label>
+        <input type="number" id="height" min="120" max="230" step="1" placeholder="e.g. 178">
+      </div>
+      <div class="field">
+        <label>Age</label>
+        <input type="number" id="age" min="16" max="90" step="1" placeholder="e.g. 34">
+      </div>
+    </div>
+    <div class="row2">
+      <div class="field">
+        <label>Sex</label>
+        <select id="sex">
+          <option value="" selected disabled>Select</option>
+          <option value="m">Male</option>
+          <option value="f">Female</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Training days per week</label>
+        <select id="days">
+          <option value="" selected disabled>Select</option>
+          <option value="0">0&ndash;1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5+</option>
+        </select>
+      </div>
+    </div>
+    <div class="field">
+      <label>Training experience</label>
+      <select id="exp">
+        <option value="" selected disabled>Select</option>
+        <option value="new">New to training</option>
+        <option value="mid">1&ndash;3 years</option>
+        <option value="adv">3+ years</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="section-header">YOUR TIMELINE</div>
+  <div class="results">
+    <div class="result-hero" id="hero">
+      <div class="label" id="heroLabel">Estimated goal date</div>
+      <div class="value" id="goalDate">&ndash;</div>
+      <div class="sub" id="honesty">Fill in your numbers above.</div>
+    </div>
+    <div class="result-grid">
+      <div class="result-card"><div class="label">Your rate</div><div class="value" id="rate">&ndash;</div></div>
+      <div class="result-card"><div class="label">Weekly change</div><div class="value" id="weekly">&ndash;</div></div>
+      <div class="result-card"><div class="label">Total time</div><div class="value" id="total">&ndash;</div></div>
+    </div>
+    <p class="note" id="context"></p>
+    <p class="note" id="training"></p>
+    <p class="note">A note from Luke: scale weight is the crudest measure of progress there is. Strength, progress photos, energy and how your clothes fit often move well before the scale does &mdash; and they matter more. Treat this date as a guide, not a verdict.</p>
+  </div>
+
+  <div class="cta">
+    <p>A date is easy. Getting there while living your life is the hard part &mdash; that's what coaching is for.</p>
+    <a href="https://form.jotform.com/220577256021046" target="_blank" rel="noopener">APPLY FOR COACHING</a>
+  </div>
+
+  <div class="footer">Heavy House &nbsp;&middot;&nbsp; Estimates based on sustainable rates of change for your body, age and training. General guidance, not medical advice.</div>
+
+</div>
+
+<script>
+function recalc(){
+  const current = parseFloat(document.getElementById('current').value);
+  const goal = parseFloat(document.getElementById('goal').value);
+  const height = parseFloat(document.getElementById('height').value);
+  const age = parseFloat(document.getElementById('age').value);
+  const sex = document.getElementById('sex').value;
+  const daysVal = document.getElementById('days').value;
+  const exp = document.getElementById('exp').value;
+
+  const hero = document.getElementById('hero');
+  const heroLabel = document.getElementById('heroLabel');
+  const dateEl = document.getElementById('goalDate');
+  const honestyEl = document.getElementById('honesty');
+  const rateEl = document.getElementById('rate');
+  const weeklyEl = document.getElementById('weekly');
+  const totalEl = document.getElementById('total');
+  const contextEl = document.getElementById('context');
+  const trainingEl = document.getElementById('training');
+
+  function resetOut(msg){
+    hero.classList.remove('warn');
+    heroLabel.textContent = 'Estimated goal date';
+    dateEl.textContent = '\u2013';
+    honestyEl.textContent = msg;
+    rateEl.textContent = '\u2013';
+    weeklyEl.textContent = '\u2013';
+    totalEl.textContent = '\u2013';
+    contextEl.textContent = '';
+    trainingEl.textContent = '';
+  }
+
+  if (!current || !goal || !height || !age || !sex || daysVal === '' || !exp){
+    resetOut('Fill in your numbers above.');
+    return;
+  }
+
+  const days = parseInt(daysVal, 10);
+  const hM = height / 100;
+  const bmiNow = current / (hM * hM);
+  const bmiGoal = goal / (hM * hM);
+  const diff = goal - current;
+
+  // guard: goal below healthy range
+  if (diff < 0 && bmiGoal < 18.5){
+    hero.classList.add('warn');
+    heroLabel.textContent = 'Hold on';
+    dateEl.textContent = 'That goal sits below a healthy weight for your height.';
+    honestyEl.textContent = 'I would want a proper conversation before helping anyone chase this number \u2014 message me instead.';
+    rateEl.textContent = '\u2013';
+    weeklyEl.textContent = '\u2013';
+    totalEl.textContent = '\u2013';
+    contextEl.textContent = '';
+    trainingEl.textContent = '';
+    return;
+  }
+
+  if (Math.abs(diff) < 0.5){
+    hero.classList.remove('warn');
+    heroLabel.textContent = 'Estimated goal date';
+    dateEl.textContent = 'You\u2019re there';
+    honestyEl.textContent = 'Your goal weight matches your current weight \u2014 the next goal might be strength, shape or performance. That\u2019s where coaching gets fun.';
+    rateEl.textContent = '\u2013';
+    weeklyEl.textContent = '\u2013';
+    totalEl.textContent = '\u2013';
+    contextEl.textContent = '';
+    trainingEl.textContent = '';
+    return;
+  }
+
+  hero.classList.remove('warn');
+  heroLabel.textContent = 'Estimated goal date';
+
+  let weeks, rateText, weeklyText, contextText, trainingText;
+
+  if (diff < 0){
+    // FAT LOSS: pace from body composition context (BMI proxy), tempered by age
+    let pace;
+    if (bmiNow >= 32) pace = 0.010;
+    else if (bmiNow >= 27) pace = 0.0075;
+    else if (bmiNow >= 23) pace = 0.005;
+    else pace = 0.0035;
+    if (age >= 50 && pace > 0.0035) pace -= 0.0025;
+
+    const weekly = current * pace;
+    weeks = Math.ceil(Math.abs(diff) / weekly);
+    rateText = (pace * 100).toFixed(2).replace(/0$/,'') + '% BW/wk';
+    weeklyText = '-' + weekly.toFixed(1) + ' kg';
+
+    if (bmiNow < 23){
+      contextText = 'You\u2019re already lean for your height, so the rate is deliberately slow \u2014 the last few kilos always come off slowest, and rushing them costs muscle.';
+    } else if (bmiNow >= 32){
+      contextText = 'With your starting point you can safely run a quicker rate early \u2014 it will naturally slow as you get leaner, and that\u2019s normal.';
+    } else {
+      contextText = 'This rate is one you can hold without wrecking training, energy or your social life \u2014 and without the rebound that follows crash diets.';
+    }
+
+    if (days <= 1){
+      trainingText = 'At ' + (days === 0 ? '0\u20131' : days) + ' training days a week, the scale can still move \u2014 but adding 2\u20133 sessions would protect your muscle while the weight comes off, so more of what you lose is actually fat.';
+    } else if (days >= 3){
+      trainingText = 'Training ' + (days >= 5 ? '5+' : days) + ' days a week gives you the stimulus to hold onto muscle while the scale drops \u2014 that\u2019s how you land at your goal looking strong, not just smaller.';
+    } else {
+      trainingText = 'Two sessions a week will hold most of your muscle \u2014 a third would make this result noticeably better.';
+    }
+  } else {
+    // MUSCLE GAIN: monthly rate from sex + experience, tempered by age and training days
+    let monthly = (exp === 'new') ? 1.0 : (exp === 'mid') ? 0.5 : 0.25;
+    if (sex === 'f') monthly *= 0.55;
+    if (age >= 45) monthly *= 0.75;
+    let capped = false;
+    if (days < 3){ monthly *= 0.6; capped = true; }
+
+    weeks = Math.ceil((diff / monthly) * 4.345);
+    rateText = '+' + monthly.toFixed(2) + ' kg/mo';
+    weeklyText = '+' + (monthly / 4.345).toFixed(2) + ' kg';
+    contextText = 'Muscle comes slower than fat leaves \u2014 around ' + monthly.toFixed(2) + 'kg a month of quality gain is a strong result for your training age. Anything much faster is mostly fat.';
+
+    if (capped){
+      trainingText = 'This timeline is capped by your training days \u2014 building muscle properly needs 3+ sessions a week. Add a session and the date moves closer.';
+    } else {
+      trainingText = 'Your training frequency supports this rate \u2014 consistency and progressive overload do the rest.';
+    }
+  }
+
+  const target = new Date();
+  target.setDate(target.getDate() + weeks * 7);
+  const months = Math.round(weeks / 4.345);
+
+  dateEl.textContent = target.toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' });
+  honestyEl.textContent = 'That\u2019s roughly ' + (months >= 2 ? months + ' months' : weeks + ' weeks') + ' of consistent work. Anyone promising it faster is selling you the rebound.';
+  rateEl.textContent = rateText;
+  weeklyEl.textContent = weeklyText;
+  totalEl.textContent = weeks + ' weeks';
+  contextEl.textContent = contextText;
+  trainingEl.textContent = trainingText;
+}
+document.querySelectorAll('input, select').forEach(el => el.addEventListener('input', recalc));
+</script>
+</body>
+</html>

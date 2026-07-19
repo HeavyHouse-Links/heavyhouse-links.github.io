@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Heavy House &mdash; The 5 Mistakes Guide</title>
+<style>
+  :root{
+    --ink:#111111;
+    --input-bg:#f2f2f2;
+    --warn:#c0392b;
+    --disclaimer:#999999;
+    --radius-lg:20px;
+    --radius-sm:10px;
+    --shadow:0 8px 24px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.05);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    padding:56px 16px 32px;
+    background:#f4f4f4;
+    font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+  }
+  .gate-card{
+    width:100%;
+    max-width:400px;
+    background:#ffffff;
+    border-radius:var(--radius-lg);
+    box-shadow:var(--shadow);
+    overflow:hidden;
+  }
+  .gate-header{
+    background:var(--ink);
+    color:#fff;
+    padding:20px 24px;
+    text-align:center;
+  }
+  .gate-header img{
+    width:44px;
+    height:44px;
+    border-radius:8px;
+    margin-bottom:10px;
+  }
+  .gate-header h2{
+    margin:0;
+    font-size:16px;
+    letter-spacing:0.06em;
+    font-weight:800;
+  }
+  .gate-body{padding:18px 24px 22px;}
+  .gate-body p.gate-lead{
+    margin:0 0 14px;
+    font-size:12.5px;
+    color:#555;
+    text-align:center;
+    line-height:1.5;
+  }
+  .gate-body label{
+    display:block;
+    font-size:11px;
+    color:var(--ink);
+    margin:10px 0 4px;
+    font-weight:600;
+  }
+  .gate-body input{
+    width:100%;
+    background:var(--input-bg);
+    border:1px solid #e2e2e2;
+    border-radius:var(--radius-sm);
+    padding:11px 12px;
+    font-size:14px;
+    font-weight:700;
+    color:var(--ink);
+    font-family:inherit;
+  }
+  .gate-btn{
+    width:100%;
+    margin-top:16px;
+    background:var(--ink);
+    color:#fff;
+    border:none;
+    border-radius:var(--radius-sm);
+    padding:13px 0;
+    font-size:12.5px;
+    font-weight:800;
+    letter-spacing:0.04em;
+    font-family:inherit;
+    cursor:pointer;
+  }
+  .gate-btn:disabled{opacity:0.6;}
+  .gate-err{
+    margin:10px 0 0;
+    font-size:11.5px;
+    color:var(--warn);
+    text-align:center;
+    display:none;
+  }
+  .gate-err.show{display:block;}
+  .gate-fine{
+    margin:12px 0 0;
+    font-size:10px;
+    color:var(--disclaimer);
+    font-style:italic;
+    text-align:center;
+    line-height:1.5;
+  }
+</style>
+</head>
+<body>
+  <div class="gate-card">
+    <div class="gate-header"><img src="data:image/png;base64,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" alt="Heavy House"><h2>THE 5 MISTAKES GUIDE</h2></div>
+    <div class="gate-body">
+      <p class="gate-lead">The 5 mistakes keeping most people from real results &mdash; free. Tell me who you are and the guide opens right up.</p>
+      <label for="gateName">Name</label>
+      <input type="text" id="gateName" autocomplete="name" placeholder="Your name">
+      <label for="gateEmail">Email</label>
+      <input type="email" id="gateEmail" autocomplete="email" placeholder="you@email.com">
+      <button type="button" class="gate-btn" id="gateBtn">GET THE GUIDE</button>
+      <p class="gate-err" id="gateErr">Please enter your name and a valid email address.</p>
+      <p class="gate-fine">You'll get the occasional free training and nutrition tip from Heavy House. No spam, unsubscribe anytime.</p>
+    </div>
+  </div>
+<script>
+(function(){
+  const PDF = 'https://heavyhouse-links.github.io/5-mistakes-guide/Heavy_House_5_Mistakes_Guide.pdf';
+  const nameEl = document.getElementById('gateName');
+  const emailEl = document.getElementById('gateEmail');
+  const btn = document.getElementById('gateBtn');
+  const err = document.getElementById('gateErr');
+  let unlocked = false;
+
+  let hasAccess = false;
+  try { hasAccess = localStorage.getItem('hhCalcAccess') === '1'; } catch(e) {}
+  if (hasAccess) { window.location.replace(PDF); return; }
+
+  function unlock(){
+    if (unlocked) return;
+    unlocked = true;
+    try { localStorage.setItem('hhCalcAccess', '1'); } catch(e) {}
+    window.location.href = PDF;
+  }
+
+  function submitGate(){
+    const name = nameEl.value.trim();
+    const email = emailEl.value.trim();
+    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
+    if (!name || !emailOk) { err.classList.add('show'); return; }
+    err.classList.remove('show');
+    btn.disabled = true;
+    btn.textContent = 'OPENING...';
+
+    const parts = name.split(/\s+/);
+    const fd = new FormData();
+    fd.append('q3_name[first]', parts[0]);
+    fd.append('q3_name[last]', parts.slice(1).join(' '));
+    fd.append('q4_email', email);
+    fetch('https://submit.jotform.com/submit/261870538436060', {
+      method: 'POST',
+      mode: 'no-cors',
+      body: fd
+    }).then(unlock, unlock);
+    setTimeout(unlock, 2500);
+  }
+
+  btn.addEventListener('click', submitGate);
+  [nameEl, emailEl].forEach(el => el.addEventListener('keydown', e => {
+    if (e.key === 'Enter') submitGate();
+  }));
+})();
+</script>
+</body>
+</html>
